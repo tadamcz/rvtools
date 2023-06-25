@@ -527,6 +527,23 @@ files = [
 ]
 
 [[package]]
+name = "mkcodes"
+version = "0.1.1"
+description = "A command-line utility for pulling code blocks out of markdown files."
+optional = false
+python-versions = ">=3.8,<4.0"
+files = [
+    {file = "mkcodes-0.1.1-py3-none-any.whl", hash = "sha256:205c081400fbb0fc1cd2407e771a158b43df6fdfb46ebea3f63de1f310b57ad4"},
+    {file = "mkcodes-0.1.1.tar.gz", hash = "sha256:df4f59e2e754b5792de8d8c5af13f907452be41a0f0f1d5007fc2e557a2de975"},
+]
+
+[package.dependencies]
+click = "*"
+
+[package.extras]
+markdown = ["Markdown"]
+
+[[package]]
 name = "multidict"
 version = "6.0.4"
 description = "multidict implementation"
@@ -895,4 +912,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.8,<3.12"
-content-hash = "4bdc7022a4aa330a2dfd91f6d0ec68a24c2c0b197598ef195db006b782926ba8"
+content-hash = "41e6b75007bbfd275e6ea81b655014f5948100d58e5d3a004cc72f7c91a983f6"
