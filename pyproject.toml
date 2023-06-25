@@ -1,0 +1,37 @@
+[tool]
+[tool.poetry]
+name = "rvtools"
+version = "0.1.0"
+homepage = "https://github.com/tadamcz/rvtools"
+description = "Top-level package for Probability distribution and random variable tools."
+authors = ["Tom Adamczewski <tadamczewskipublic@gmail.com>"]
+readme = "README.md"
+classifiers=[
+    'Natural Language :: English',
+    'Programming Language :: Python :: 3',
+]
+packages = [
+    { include = "rvtools" },
+    { include = "tests", format = "sdist" },
+]
+
+[tool.poetry.dependencies]
+python = ">=3.7,<4"
+
+[tool.poetry.group.dev.dependencies]
+bump2version = "*"
+coverage = "*"
+pytest = ">=7.2.0"
+black = {extras = ["d"], version = "*"}
+
+
+
+[tool.black]
+line-length = 100
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.isort]
+profile = "black"
