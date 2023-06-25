@@ -1,18 +1,24 @@
 A collection of tools for conveniently working with SciPy probability distributions.
 
-# Distribution constructors
+# Installation
+```shell
+pip install rvtools  # or `poetry add rvtools`
+```
+
+# Usage
+## Distribution constructors
 
 ⚠️ **Many of these APIs intentionally diverge from `scipy.stats`.** The behaviour should generally be clear from the names of the keyword arguments. However, if you blindly use positional arguments and expect the same behavior as `scipy.stats`, bad things will happen.
 
 This is an opinionated library. The API is designed to be in line with common usage in mathematics and statistics, and my personal preferences.
-## Certainty
+### Certainty
 
 ```python
 from rvtools import certainty
 certainty(42)
 ```
 
-## PERT
+### PERT
 
 ```python
 from rvtools import pert, mpert
@@ -20,7 +26,7 @@ pert(1, 2, 4)
 mpert(1, 2, 4, lambd=2.5)
 ```
 
-## Lognormal
+### Lognormal
 
 ```python
 from rvtools import lognorm
@@ -40,7 +46,7 @@ lognorm(quantiles={0.5: 1, 0.95: 2})
 lognorm(1, 2)
 ```
 
-## Beta
+### Beta
 
 ```python
 from rvtools import beta
@@ -52,7 +58,7 @@ beta(3, 4)
 beta(p5=0.1, p95=0.9)
 ```
 
-## Normal
+### Normal
 
 ```python
 from rvtools import norm
@@ -64,7 +70,7 @@ norm(0, 1)
 norm(p12=0, p42=1)
 ```
 
-## Uniform
+### Uniform
 
 ```python
 from rvtools import uniform
