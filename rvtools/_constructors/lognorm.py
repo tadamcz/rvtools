@@ -14,14 +14,15 @@ def lognorm(
     mean: Real = None,
     sd: Real = None,
     quantiles: dict[Real, Real] = None,
+    **kwargs,
 ):
-    spec = parse_spec(mu=mu, sigma=sigma, mean=mean, sd=sd, quantiles=quantiles)
+    spec = parse_spec(mu=mu, sigma=sigma, mean=mean, sd=sd, quantiles=quantiles, **kwargs)
     if spec.keys() == {"mu", "sigma"}:
         return from_params(mu, sigma)
     elif spec.keys() == {"mean", "sd"}:
         return from_mean_sd(mean, sd)
     elif spec.keys() == {"quantiles"}:
-        return from_quantiles(quantiles)
+        return from_quantiles(spec["quantiles"])
     else:
         raise ValueError(
             "You must specify either 'mu' and 'sigma', 'mean' and 'sd', or 'quantiles'."

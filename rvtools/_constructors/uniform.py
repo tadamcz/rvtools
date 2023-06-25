@@ -6,12 +6,12 @@ from scipy.interpolate import interp1d
 from rvtools._constructors._helpers import parse_spec
 
 
-def uniform(a: Real = None, b: Real = None, *, quantiles: dict[Real, Real] = None):
-    spec = parse_spec(a=a, b=b, quantiles=quantiles)
+def uniform(a: Real = None, b: Real = None, *, quantiles: dict[Real, Real] = None, **kwargs):
+    spec = parse_spec(a=a, b=b, quantiles=quantiles, **kwargs)
     if spec.keys() == {"a", "b"}:
         return from_extrema(a, b)
     elif spec.keys() == {"quantiles"}:
-        return from_quantiles(quantiles)
+        return from_quantiles(spec["quantiles"])
     else:
         raise ValueError("You must specify either the extrema 'a' and 'b', or 'quantiles'.")
 

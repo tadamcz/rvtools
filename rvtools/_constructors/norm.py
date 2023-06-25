@@ -5,12 +5,12 @@ import scipy
 from rvtools._constructors._helpers import parse_spec
 
 
-def norm(mean: float = None, sd: float = None, *, quantiles: dict[Real, Real] = None):
-    spec = parse_spec(mean=mean, sd=sd, quantiles=quantiles)
+def norm(mean: float = None, sd: float = None, *, quantiles: dict[Real, Real] = None, **kwargs):
+    spec = parse_spec(mean=mean, sd=sd, quantiles=quantiles, **kwargs)
     if spec.keys() == {"mean", "sd"}:
         return scipy.stats.norm(mean, sd)
     elif spec.keys() == {"quantiles"}:
-        return from_quantiles(quantiles)
+        return from_quantiles(spec["quantiles"])
     else:
         raise ValueError("You must specify either 'mean' and 'sd', or 'quantiles'.")
 
