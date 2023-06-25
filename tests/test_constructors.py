@@ -104,11 +104,13 @@ class TestLognorm:
         dist = rvtools.lognorm(quantiles=quantiles)
         assert_has_quantiles(dist, quantiles)
 
-    def test_too_many_args(self):
+    def test_inconsistent_spec(self):
         with pytest.raises(ValueError, match="You must specify"):
             rvtools.lognorm(1, 1, quantiles={0.1: 0.1, 0.5: 0.5})
         with pytest.raises(ValueError, match="You must specify"):
             rvtools.lognorm(1, 1, mean=1)
+        with pytest.raises(ValueError, match="You must specify"):
+            rvtools.lognorm(mean=1, sd=1, mu=1)
 
 
 class TestNorm:
