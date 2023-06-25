@@ -2,11 +2,11 @@ from numbers import Real
 
 import scipy
 
-from rvtools._constructors._helpers import build_spec
+from rvtools._constructors._helpers import parse_spec
 
 
 def norm(mean: float = None, sd: float = None, *, quantiles: dict[Real, Real] = None):
-    spec = build_spec(mean=mean, sd=sd, quantiles=quantiles)
+    spec = parse_spec(mean=mean, sd=sd, quantiles=quantiles)
     if spec.keys() == {"mean", "sd"}:
         return scipy.stats.norm(mean, sd)
     elif spec.keys() == {"quantiles"}:

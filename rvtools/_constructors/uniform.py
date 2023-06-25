@@ -3,11 +3,11 @@ from numbers import Real
 import scipy
 from scipy.interpolate import interp1d
 
-from rvtools._constructors._helpers import build_spec
+from rvtools._constructors._helpers import parse_spec
 
 
 def uniform(a: Real = None, b: Real = None, *, quantiles: dict[Real, Real] = None):
-    spec = build_spec(a=a, b=b, quantiles=quantiles)
+    spec = parse_spec(a=a, b=b, quantiles=quantiles)
     if spec.keys() == {"a", "b"}:
         return from_extrema(a, b)
     elif spec.keys() == {"quantiles"}:

@@ -3,7 +3,7 @@ from numbers import Real
 import numpy as np
 import scipy
 
-from rvtools._constructors._helpers import build_spec
+from rvtools._constructors._helpers import parse_spec
 from rvtools._constructors.norm import params_from_quantiles as norm_params_from_quantiles
 
 
@@ -15,7 +15,7 @@ def lognorm(
     sd: Real = None,
     quantiles: dict[Real, Real] = None,
 ):
-    spec = build_spec(mu=mu, sigma=sigma, mean=mean, sd=sd, quantiles=quantiles)
+    spec = parse_spec(mu=mu, sigma=sigma, mean=mean, sd=sd, quantiles=quantiles)
     if spec.keys() == {"mu", "sigma"}:
         return from_params(mu, sigma)
     elif spec.keys() == {"mean", "sd"}:

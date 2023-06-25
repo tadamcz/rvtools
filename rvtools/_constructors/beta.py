@@ -3,15 +3,15 @@ from numbers import Real
 import numpy as np
 import scipy
 
-from rvtools._constructors._helpers import build_spec
+from rvtools._constructors._helpers import parse_spec
 
 
-def beta(alpha: Real = None, beta: Real = None, *, quantiles: dict[Real, Real] = None):
-    spec = build_spec(alpha=alpha, beta=beta, quantiles=quantiles)
+def beta(alpha: Real = None, beta: Real = None, *, quantiles: dict[Real, Real] = None, **kwargs):
+    spec = parse_spec(alpha=alpha, beta=beta, quantiles=quantiles, **kwargs)
     if spec.keys() == {"alpha", "beta"}:
         return scipy.stats.beta(alpha, beta)
     elif spec.keys() == {"quantiles"}:
-        return from_quantiles(quantiles)
+        return from_quantiles(spec["quantiles"])
     else:
         raise ValueError("You must specify either 'alpha' and 'beta', or 'quantiles'.")
 
