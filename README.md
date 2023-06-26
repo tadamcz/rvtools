@@ -120,10 +120,10 @@ These functions let you check this at runtime (by looking at the `dist` attribut
 ```python
 from rvtools.types import is_frozen_norm, is_frozen_lognorm, is_frozen_beta
 import scipy
-from rvtools import norm
+import rvtools
 
 assert is_frozen_norm(scipy.stats.norm(0, 1))
-assert is_frozen_norm(norm(p10=0, p90=1))
+assert is_frozen_norm(rvtools.norm(p10=0, p90=1))
 ```
 
 # TODO
