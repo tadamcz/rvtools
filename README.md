@@ -127,5 +127,6 @@ assert is_frozen_norm(rvtools.construct.norm(p10=0, p90=1))
 ```
 
 # TODO
-## copula-wrapper
 ## Truncated lognormal
+## Add https://github.com/tadamcz/copula-wrapper once quality is good enough
+## Add https://github.com/tadamcz/metalogistic once quality is good enough
