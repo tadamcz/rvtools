@@ -85,3 +85,21 @@ uniform(1, 0)
 uniform(p5=0, p95=1)
 uniform(quantiles={0.05: 0, 0.95: 1})
 ```
+
+### Two-piece uniform
+
+```python
+from rvtools import tp_uniform, halves_uniform
+
+# A piecewise uniform distribution with two pieces
+# (0, 3) with probability mass 0.1, and (3, 10) with probability mass 0.9
+tp_uniform(0, 3, 10, p=0.1)
+
+# For convenience, there is also a distribution for the special case
+# of each piece having 0.5 probability mass:
+halves_uniform(0, 3, 10)
+```
+
+# TODO
+## copula-wrapper
+## Truncated lognormal

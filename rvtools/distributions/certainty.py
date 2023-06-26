@@ -25,4 +25,7 @@ class Certainty(scipy.stats.rv_continuous):
         return np.full(size, value)
 
 
+# ``certainty`` being an instance, not a class, is not IMO idiomatic Python, but it's core to the way SciPy's
+# ``rv_continuous`` class works. See examples of how SciPy defines their distributions in
+# ``scipy/stats/_continuous_distns.py``.
 certainty = Certainty()
