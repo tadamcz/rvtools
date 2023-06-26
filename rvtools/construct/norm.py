@@ -2,7 +2,7 @@ from numbers import Real
 
 import scipy
 
-from rvtools._constructors._helpers import parse_spec
+from rvtools.construct._helpers import parse_spec
 
 
 def norm(mean: float = None, sd: float = None, *, quantiles: dict[Real, Real] = None, **kwargs):

@@ -56,7 +56,7 @@ This is an opinionated API designed to be in line with common usage in mathemati
 ### Lognormal
 
 ```python
-from rvtools import lognorm
+from rvtools.construct import lognorm
 
 # Three ways to specify the parameters:
 
@@ -76,7 +76,7 @@ lognorm(1, 2)
 ### Beta
 
 ```python
-from rvtools import beta
+from rvtools.construct import beta
 # Two ways to specify parameters:
 
 # 1. Using (alpha, beta). This is the same as SciPy.
@@ -88,7 +88,7 @@ beta(p5=0.1, p95=0.9)
 ### Normal
 
 ```python
-from rvtools import norm
+from rvtools.construct import norm
 # Two ways to specify parameters:
 
 # 1. Using (mean, sd). This is the same as SciPy.
@@ -100,7 +100,7 @@ norm(p12=0, p42=1)
 ### Uniform
 
 ```python
-from rvtools import uniform
+from rvtools.construct import uniform
 # Two ways to specify parameters:
 
 # 1. Using bounds. This differs from SciPy.
@@ -120,10 +120,10 @@ These functions let you check this at runtime (by looking at the `dist` attribut
 ```python
 from rvtools.types import is_frozen_norm, is_frozen_lognorm, is_frozen_beta
 import scipy
-import rvtools
+import rvtools.construct
 
 assert is_frozen_norm(scipy.stats.norm(0, 1))
-assert is_frozen_norm(rvtools.norm(p10=0, p90=1))
+assert is_frozen_norm(rvtools.construct.norm(p10=0, p90=1))
 ```
 
 # TODO

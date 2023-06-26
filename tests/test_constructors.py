@@ -2,7 +2,7 @@ import numpy as np
 import pytest
 import scipy
 
-import rvtools
+import rvtools.construct as construct
 from tests.conftest import assert_same_distribution
 
 
@@ -26,9 +26,9 @@ class TestBeta:
     @pytest.mark.parametrize("as_kwargs", [True, False], ids=lambda x: "kwargs" if x else "args")
     def test_from_alpha_beta(self, alpha, beta, as_kwargs):
         if as_kwargs:
-            our_d = rvtools.beta(alpha=alpha, beta=beta)
+            our_d = construct.beta(alpha=alpha, beta=beta)
         else:
-            our_d = rvtools.beta(alpha, beta)
+            our_d = construct.beta(alpha, beta)
         scipy_d = scipy.stats.beta(alpha, beta)
         assert_same_distribution(our_d, scipy_d)
 
@@ -40,11 +40,11 @@ class TestBeta:
         return request.param
 
     def test_from_quantiles(self, quantiles):
-        assert_has_quantiles(rvtools.beta(quantiles=quantiles), quantiles)
+        assert_has_quantiles(construct.beta(quantiles=quantiles), quantiles)
 
     def test_too_many_args(self):
         with pytest.raises(ValueError, match="You must specify"):
-            rvtools.beta(1, 1, quantiles={0.1: 0.1, 0.5: 0.5})
+            construct.beta(1, 1, quantiles={0.1: 0.1, 0.5: 0.5})
 
 
 class TestLognorm:
@@ -71,9 +71,9 @@ class TestLognorm:
     @pytest.mark.parametrize("as_kwargs", [True, False], ids=lambda x: "kwargs" if x else "args")
     def test_from_mu_sigma(self, mu, sigma, as_kwargs):
         if as_kwargs:
-            dist = rvtools.lognorm(mu=mu, sigma=sigma)
+            dist = construct.lognorm(mu=mu, sigma=sigma)
         else:
-            dist = rvtools.lognorm(mu, sigma)
+            dist = construct.lognorm(mu, sigma)
 
         # Check that the log of our distribution is normal
         ps = np.linspace(0, 1)
@@ -82,21 +82,21 @@ class TestLognorm:
         assert got == pytest.approx(want)
 
     def test_from_mean_sd(self, mean, sd):
-        dist = rvtools.lognorm(mean=mean, sd=sd)
+        dist = construct.lognorm(mean=mean, sd=sd)
         got = (dist.mean(), dist.std())
         assert got == pytest.approx((mean, sd))
 
     def test_from_quantiles(self, quantiles):
-        dist = rvtools.lognorm(quantiles=quantiles)
+        dist = construct.lognorm(quantiles=quantiles)
         assert_has_quantiles(dist, quantiles)
 
     def test_inconsistent_spec(self):
         with pytest.raises(ValueError, match="You must specify"):
-            rvtools.lognorm(1, 1, quantiles={0.1: 0.1, 0.5: 0.5})
+            construct.lognorm(1, 1, quantiles={0.1: 0.1, 0.5: 0.5})
         with pytest.raises(ValueError, match="You must specify"):
-            rvtools.lognorm(1, 1, mean=1)
+            construct.lognorm(1, 1, mean=1)
         with pytest.raises(ValueError, match="You must specify"):
-            rvtools.lognorm(mean=1, sd=1, mu=1)
+            construct.lognorm(mean=1, sd=1, mu=1)
 
 
 class TestNorm:
@@ -113,17 +113,17 @@ class TestNorm:
         return {0.1: -1, 0.9: 1}
 
     def test_from_mean_sd(self, mean, sd):
-        our_d = rvtools.norm(mean=mean, sd=sd)
+        our_d = construct.norm(mean=mean, sd=sd)
         scipy_d = scipy.stats.norm(mean, sd)
         assert_same_distribution(our_d, scipy_d)
 
     def test_from_quantiles(self, quantiles):
-        dist = rvtools.norm(quantiles=quantiles)
+        dist = construct.norm(quantiles=quantiles)
         assert_has_quantiles(dist, quantiles)
 
     def test_too_many_args(self):
         with pytest.raises(ValueError, match="You must specify"):
-            rvtools.norm(1, 1, quantiles={0.1: 0.1, 0.5: 0.5})
+            construct.norm(1, 1, quantiles={0.1: 0.1, 0.5: 0.5})
 
 
 class TestUniform:
@@ -145,14 +145,14 @@ class TestUniform:
         return request.param
 
     def test_from_pair(self, pair):
-        dist = rvtools.uniform(*pair)
+        dist = construct.uniform(*pair)
         assert dist.ppf(0.5) == pytest.approx(np.mean(pair))
         assert dist.support() == pytest.approx(sorted(pair))
 
     def test_from_quantiles(self, quantiles):
-        dist = rvtools.uniform(quantiles=quantiles)
+        dist = construct.uniform(quantiles=quantiles)
         assert_has_quantiles(dist, quantiles)
 
     def test_degenerate_rvs(self):
-        our_d = rvtools.uniform(1, 1)
+        our_d = construct.uniform(1, 1)
         assert all(our_d.rvs(size=10) == [1] * 10)

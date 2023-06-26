@@ -3,7 +3,7 @@ from numbers import Real
 import scipy
 from scipy.interpolate import interp1d
 
-from rvtools._constructors._helpers import parse_spec
+from rvtools.construct._helpers import parse_spec
 
 
 def uniform(a: Real = None, b: Real = None, *, quantiles: dict[Real, Real] = None, **kwargs):

@@ -3,7 +3,7 @@ from numbers import Real
 import numpy as np
 import scipy
 
-from rvtools._constructors._helpers import parse_spec
+from rvtools.construct._helpers import parse_spec
 
 
 def beta(alpha: Real = None, beta: Real = None, *, quantiles: dict[Real, Real] = None, **kwargs):

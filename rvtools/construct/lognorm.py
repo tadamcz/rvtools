@@ -3,8 +3,8 @@ from numbers import Real
 import numpy as np
 import scipy
 
-from rvtools._constructors._helpers import parse_spec
-from rvtools._constructors.norm import params_from_quantiles as norm_params_from_quantiles
+from rvtools.construct._helpers import parse_spec
+from rvtools.construct.norm import params_from_quantiles as norm_params_from_quantiles
 
 
 def lognorm(

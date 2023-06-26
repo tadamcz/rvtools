@@ -2,7 +2,8 @@ import numpy as np
 import pytest
 import scipy
 
-from rvtools import tp_uniform, uniform
+from rvtools import tp_uniform
+from rvtools.construct import uniform
 from rvtools.distributions.tp_uniform import TwoPieceUniform, halves_uniform
 from tests.conftest import assert_same_distribution
 

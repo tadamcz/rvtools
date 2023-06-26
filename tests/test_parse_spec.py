@@ -1,6 +1,6 @@
 import pytest
 
-from rvtools._constructors._helpers import parse_spec, collect_kwarg_quantiles
+from rvtools.construct._helpers import parse_spec, collect_kwarg_quantiles
 
 
 class TestParseSpec:
