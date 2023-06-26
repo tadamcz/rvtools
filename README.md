@@ -6,25 +6,52 @@ pip install rvtools  # or `poetry add rvtools`
 ```
 
 # Usage
-## Distribution constructors
+## Additional probability distributions
+These are subclasses of `scipy.stats._distn_infrastructure.rv_generic` (the base class for all SciPy distributions). They behave like you'd expect from SciPy.
 
-⚠️ **Many of these APIs intentionally diverge from `scipy.stats`.** The behaviour should generally be clear from the names of the keyword arguments. However, if you blindly use positional arguments and expect the same behavior as `scipy.stats`, bad things will happen.
+### Two-piece uniform
 
-This is an opinionated library. The API is designed to be in line with common usage in mathematics and statistics, and my personal preferences.
+```python
+from rvtools import tp_uniform, halves_uniform
+
+# A piecewise uniform distribution with two pieces
+# (0, 3) with probability mass 0.1, and (3, 10) with probability mass 0.9
+tp_uniform(0, 3, 10, p=0.1)
+
+# For convenience, there is also a distribution for the special case
+# of each piece having 0.5 probability mass:
+halves_uniform(0, 3, 10)
+```
+
 ### Certainty
 
 ```python
+import scipy
 from rvtools import certainty
+# Represents certainty as a continuous rather than discrete distribution.
+# In other words, this is like the Dirac delta distribution, but at any
+# value (e.g. 42), not just 0.
 certainty(42)
+assert isinstance(certainty, scipy.stats.rv_continuous)
 ```
 
 ### PERT
-
+See [tadamcz/betapert](https://github.com/tadamcz/betapert), these functions are simply imported from there for convenience.
 ```python
 from rvtools import pert, mpert
 pert(1, 2, 4)
 mpert(1, 2, 4, lambd=2.5)
 ```
+
+
+
+## Constructors for common distributions
+
+These are functions that return a 'frozen' distribution object (which in SciPy means a distribution with specific parameter values). This means `lognorm(1, 2).cdf(3)` can be used, but the `lognorm.cdf(3, 1, 2)` that you may be used to from SciPy will raise an `AttributeError` with rvtools. (Given how SciPy's distribution infrastructure works, improving this would require severe hacks, as far as I can tell.)
+
+⚠️ **Many of these function signatures intentionally diverge from `scipy.stats`.** The behaviour should generally be clear from the names of the keyword arguments. However, if you blindly use _positional_ arguments and expect the same behaviour as `scipy.stats`, bad things will happen.
+
+This is an opinionated API designed to be in line with common usage in mathematics and statistics, and my personal preferences. It may be a bad fit if you want to write code that is highly idiomatic in the Python scientific computing ecosystem.
 
 ### Lognormal
 
@@ -86,19 +113,6 @@ uniform(p5=0, p95=1)
 uniform(quantiles={0.05: 0, 0.95: 1})
 ```
 
-### Two-piece uniform
-
-```python
-from rvtools import tp_uniform, halves_uniform
-
-# A piecewise uniform distribution with two pieces
-# (0, 3) with probability mass 0.1, and (3, 10) with probability mass 0.9
-tp_uniform(0, 3, 10, p=0.1)
-
-# For convenience, there is also a distribution for the special case
-# of each piece having 0.5 probability mass:
-halves_uniform(0, 3, 10)
-```
 
 # TODO
 ## copula-wrapper
