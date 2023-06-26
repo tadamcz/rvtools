@@ -118,12 +118,12 @@ A 'frozen' distribution inherits from `scipy.stats._distn_infrastructure.rv_froz
 These functions let you check this at runtime (by looking at the `dist` attribute of a frozen distribution).
 
 ```python
-from rvtools.types import is_frozen_normal, is_frozen_lognormal, is_frozen_beta
+from rvtools.types import is_frozen_norm, is_frozen_lognorm, is_frozen_beta
 import scipy
 from rvtools import norm
 
-assert is_frozen_normal(scipy.stats.norm(0, 1))
-assert is_frozen_normal(norm(p10=0, p90=1))
+assert is_frozen_norm(scipy.stats.norm(0, 1))
+assert is_frozen_norm(norm(p10=0, p90=1))
 ```
 
 # TODO
