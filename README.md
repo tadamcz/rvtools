@@ -112,7 +112,19 @@ uniform(1, 0)
 uniform(p5=0, p95=1)
 uniform(quantiles={0.05: 0, 0.95: 1})
 ```
+## 'Type' checkers
+A 'frozen' distribution inherits from `scipy.stats._distn_infrastructure.rv_frozen`. This means its Python type does not expose the distribution family (e.g. whether it's a `norm` or `lognorm`). 
 
+These functions let you check this at runtime (by looking at the `dist` attribute of a frozen distribution).
+
+```python
+from rvtools.types import is_frozen_normal, is_frozen_lognormal, is_frozen_beta
+import scipy
+from rvtools import norm
+
+assert is_frozen_normal(scipy.stats.norm(0, 1))
+assert is_frozen_normal(norm(p10=0, p90=1))
+```
 
 # TODO
 ## copula-wrapper
