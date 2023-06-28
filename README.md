@@ -55,7 +55,7 @@ These are functions that return a 'frozen' distribution object (which in SciPy m
 
 This is an opinionated API designed to be in line with common usage in mathematics and statistics, and my personal preferences. It may be a bad fit if you want to write code that is highly idiomatic in the Python scientific computing ecosystem.
 
-### Lognormal
+### Log-normal
 
 ```python
 from rvtools.construct import lognorm
@@ -110,9 +110,23 @@ uniform(0, 1)
 # Bounds do not need to be ordered. This is equivalent:
 uniform(1, 0)
 
-# 2. Quantiles
+# 2. Using quantiles
 uniform(p5=0, p95=1)
 uniform(quantiles={0.05: 0, 0.95: 1})
+```
+
+### Log-uniform
+
+```python
+from rvtools.construct import loguniform
+# Two ways to specify parameters:
+
+# 1. Using bounds. 
+# This works the same as SciPy, except that the bounds do not need to be ordered.
+loguniform(10, 1)
+
+# 2. Using quantiles
+loguniform(p5=1, p95=2)
 ```
 
 ### Correlated multivariate distribution via Copula

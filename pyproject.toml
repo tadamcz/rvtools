@@ -27,6 +27,7 @@ pytest = ">=7.2.0"
 pytest-pycharm = "*"
 black = {extras = ["d"], version = "*"}
 mkcodes = "^0.1.1"
+matplotlib = "^3.7.1"
 
 
 

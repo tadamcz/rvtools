@@ -33,7 +33,7 @@ class TestBeta:
         assert_same_distribution(our_d, scipy_d)
 
     @pytest.fixture(
-        params=[{0.1: 0.2, 0.5: 0.85}, {0.1: 0.5, 0.5: 0.99}, {0.001: 0.5, 0.5: 0.99}],  #  #  #
+        params=[{0.1: 0.2, 0.5: 0.85}, {0.1: 0.5, 0.5: 0.99}, {0.001: 0.5, 0.5: 0.99}],  # #  #
         ids=lambda p: f"quantiles={p}",
     )
     def quantiles(self, request):
@@ -156,3 +156,25 @@ class TestUniform:
     def test_degenerate_rvs(self):
         our_d = construct.uniform(1, 1)
         assert all(our_d.rvs(size=10) == [1] * 10)
+
+
+class TestLogUniform:
+    @pytest.fixture(
+        params=[
+            # A simple case
+            {0.1: 1, 0.9: 10_000},
+            # Small numbers
+            {0.1: 1e-6, 0.9: 1e-5},
+        ],
+        ids=lambda p: f"quantiles={p}",
+    )
+    def quantiles(self, request):
+        return request.param
+
+    def test_from_quantiles(self, quantiles):
+        dist = construct.loguniform(quantiles=quantiles)
+        assert_has_quantiles(dist, quantiles)
+
+    def test_params_unordered(self):
+        dist = construct.loguniform(10, 1)
+        assert dist.support() == pytest.approx([1, 10])
