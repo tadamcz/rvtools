@@ -36,10 +36,12 @@ assert isinstance(certainty, scipy.stats.rv_continuous)
 ```
 
 ### PERT
-See [tadamcz/betapert](https://github.com/tadamcz/betapert), these functions are simply imported from there for convenience.
+Defined by the minimum, most likely, and maximum values. An alternative to the triangular distribution with a smoother shape.
+
+See [tadamcz/betapert](https://github.com/tadamcz/betapert) (these distributions are simply imported from there for convenience).
 ```python
 from rvtools import pert, mpert
-pert(1, 2, 4)
+pert(1, 2, 4)  # minimum, most likely (mode), maximum
 mpert(1, 2, 4, lambd=2.5)
 ```
 
@@ -112,6 +114,29 @@ uniform(1, 0)
 uniform(p5=0, p95=1)
 uniform(quantiles={0.05: 0, 0.95: 1})
 ```
+
+### Correlated multivariate distribution via Copula
+Specify a joint probability distribution from arbitrary marginal distributions and pairwise rank correlations.
+
+See [tadamcz/copula-wrapper](https://github.com/tadamcz/copula-wrapper) for full details, these functions are simply imported from there for convenience.
+```python
+from rvtools.construct import CopulaJoint
+import scipy
+# Marginals and correlations as dictionaries (can also be list and matrix) 
+marginals = {
+	"consumption elasticity": scipy.stats.uniform(0.75, 3),
+	"market return": scipy.stats.lognorm(0.05, 0.05),
+	"risk of war": scipy.stats.beta(1, 50)
+}
+tau = {
+	# Missing pairs are assumed to be independent
+	("risk of war", "market return"): -0.5,
+}
+CopulaJoint(marginals, kendall_tau=tau)  # Spearman's rho is also supported
+```
+
+For arcane implementation reasons (see [tadamcz/copula-wrapper](https://github.com/tadamcz/copula-wrapper)) the other constructors are functions, while `CopulaJoint` is a class. You shouldn't have to think about this: both return a frozen distribution object when called. 
+
 ## 'Type' checkers
 A 'frozen' distribution inherits from `scipy.stats._distn_infrastructure.rv_frozen`. This means its Python type does not expose the distribution family (e.g. whether it's a `norm` or `lognorm`). 
 
@@ -128,5 +153,4 @@ assert is_frozen_norm(rvtools.construct.norm(p10=0, p90=1))
 
 # TODO
 ## Truncated lognormal
-## Add https://github.com/tadamcz/copula-wrapper once quality is good enough
 ## Add https://github.com/tadamcz/metalogistic once quality is good enough
