@@ -16,7 +16,7 @@ packages = [
 ]
 
 [tool.poetry.dependencies]
-python = ">=3.8,<3.12"
+python = ">=3.9,<3.13"
 betapert = "^0.1.2"
 
 [tool.poetry.group.dev.dependencies]
