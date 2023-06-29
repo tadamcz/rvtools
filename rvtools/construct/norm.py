@@ -5,7 +5,7 @@ import scipy
 from rvtools.construct._helpers import parse_spec
 
 
-def norm(mean: float = None, sd: float = None, *, quantiles: dict[Real, Real] = None, **kwargs):
+def norm(mean: Real = None, sd: Real = None, *, quantiles: dict[Real, Real] = None, **kwargs):
     spec = parse_spec(mean=mean, sd=sd, quantiles=quantiles, **kwargs)
     if spec.keys() == {"mean", "sd"}:
         return scipy.stats.norm(mean, sd)
