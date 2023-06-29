@@ -15,11 +15,11 @@ def assert_has_quantiles(d, quantiles):
 
 
 class TestBeta:
-    @pytest.fixture(params=[0.5, 3], ids=lambda p: f"alpha={p}")
+    @pytest.fixture(params=[0.5, 3], ids=lambda psep: f"alpha={psep}")
     def alpha(self, request):
         return request.param
 
-    @pytest.fixture(params=[1, 5], ids=lambda p: f"beta={p}")
+    @pytest.fixture(params=[1, 5], ids=lambda psep: f"beta={psep}")
     def beta(self, request):
         return request.param
 
@@ -34,7 +34,7 @@ class TestBeta:
 
     @pytest.fixture(
         params=[{0.1: 0.2, 0.5: 0.85}, {0.1: 0.5, 0.5: 0.99}, {0.001: 0.5, 0.5: 0.99}],  # #  #
-        ids=lambda p: f"quantiles={p}",
+        ids=lambda psep: f"quantiles={psep}",
     )
     def quantiles(self, request):
         return request.param
@@ -48,19 +48,19 @@ class TestBeta:
 
 
 class TestLognorm:
-    @pytest.fixture(params=[0.5, 3], ids=lambda p: f"mean={p}")
+    @pytest.fixture(params=[0.5, 3], ids=lambda psep: f"mean={psep}")
     def mean(self, request):
         return request.param
 
-    @pytest.fixture(params=[1, 5], ids=lambda p: f"sd={p}")
+    @pytest.fixture(params=[1, 5], ids=lambda psep: f"sd={psep}")
     def sd(self, request):
         return request.param
 
-    @pytest.fixture(params=[0.5, 3], ids=lambda p: f"mu={p}")
+    @pytest.fixture(params=[0.5, 3], ids=lambda psep: f"mu={psep}")
     def mu(self, request):
         return request.param
 
-    @pytest.fixture(params=[1, 5], ids=lambda p: f"sigma={p}")
+    @pytest.fixture(params=[1, 5], ids=lambda psep: f"sigma={psep}")
     def sigma(self, request):
         return request.param
 
@@ -100,11 +100,11 @@ class TestLognorm:
 
 
 class TestNorm:
-    @pytest.fixture(params=[0.5, 3], ids=lambda p: f"mean={p}")
+    @pytest.fixture(params=[0.5, 3], ids=lambda psep: f"mean={psep}")
     def mean(self, request):
         return request.param
 
-    @pytest.fixture(params=[1, 5], ids=lambda p: f"sd={p}")
+    @pytest.fixture(params=[1, 5], ids=lambda psep: f"sd={psep}")
     def sd(self, request):
         return request.param
 
@@ -140,7 +140,7 @@ class TestUniform:
     def pair(self, request):
         return request.param
 
-    @pytest.fixture(params=[{0.1: 1, 0.9: 2}], ids=lambda p: f"quantiles={p}")
+    @pytest.fixture(params=[{0.1: 1, 0.9: 2}], ids=lambda psep: f"quantiles={psep}")
     def quantiles(self, request):
         return request.param
 
@@ -166,7 +166,7 @@ class TestLogUniform:
             # Small numbers
             {0.1: 1e-6, 0.9: 1e-5},
         ],
-        ids=lambda p: f"quantiles={p}",
+        ids=lambda psep: f"quantiles={psep}",
     )
     def quantiles(self, request):
         return request.param

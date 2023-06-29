@@ -30,32 +30,32 @@ def param_triple(request):
 
 
 @pytest.fixture(params=[0.90, 0.05, 1 / 3], ids=lambda p: f"p={p}")
-def p_param(request):
+def psep(request):
     return request.param
 
 
-def test_rvs(param_triple, p_param):
-    mini, q, maxi = param_triple
-    dist = tp_uniform(mini=mini, q=q, maxi=maxi, p=p_param)
+def test_rvs(param_triple, psep):
+    mini, sep, maxi = param_triple
+    dist = tp_uniform(mini=mini, sep=sep, maxi=maxi, psep=psep)
 
     # When size=1, deterministically only 1 sample from the left side is returned
-    assert mini <= dist.rvs(size=1, random_state=0) <= q
+    assert mini <= dist.rvs(size=1, random_state=0) <= sep
 
 
-def test_pdf_any(param_triple, p_param):
-    mini, q, maxi = param_triple
-    dist = tp_uniform(mini=mini, q=q, maxi=maxi, p=p_param)
+def test_pdf_any(param_triple, psep):
+    mini, sep, maxi = param_triple
+    dist = tp_uniform(mini=mini, sep=sep, maxi=maxi, psep=psep)
 
     assert dist.pdf(mini - 1) == pytest.approx(0)
     assert dist.pdf(maxi + 1) == pytest.approx(0)
 
 
-def test_cdf_any(param_triple, p_param):
-    mini, q, maxi = param_triple
-    dist = tp_uniform(mini=mini, q=q, maxi=maxi, p=p_param)
+def test_cdf_any(param_triple, psep):
+    mini, sep, maxi = param_triple
+    dist = tp_uniform(mini=mini, sep=sep, maxi=maxi, psep=psep)
 
     assert dist.cdf(mini - 1e-6) == pytest.approx(0)
-    assert dist.cdf(q) == pytest.approx(p_param)
+    assert dist.cdf(sep) == pytest.approx(psep)
     assert dist.cdf(maxi + 1e-6) == pytest.approx(1)
 
 
@@ -97,7 +97,7 @@ def test_uniform_special_case(param_triple):
 
 
 @pytest.fixture()
-def numerical_cdf_dist(param_triple, p_param):
+def numerical_cdf_dist(param_triple, psep):
     class NumericalCDFTwoPieceUniform(TwoPieceUniform):
         def _cdf(self, x, *args, **kwargs):
             return scipy.stats.rv_continuous._cdf(self, x, *args, **kwargs)
@@ -105,30 +105,30 @@ def numerical_cdf_dist(param_triple, p_param):
     # Follow SciPy pattern
     numerical_cdf_tp_uniform = NumericalCDFTwoPieceUniform()
 
-    return numerical_cdf_tp_uniform(*param_triple, p_param)
+    return numerical_cdf_tp_uniform(*param_triple, psep)
 
 
-def test_cdf_matches_numerical(param_triple, p_param, numerical_cdf_dist):
+def test_cdf_matches_numerical(param_triple, psep, numerical_cdf_dist):
     """
     The CDF (which we have in closed form) matches the CDF obtained by numerically integrating the PDF.
     """
-    mini, q, maxi = param_triple
+    mini, sep, maxi = param_triple
     x = np.linspace(mini, maxi, 10)
 
     numerical = numerical_cdf_dist.cdf(x)
-    closed_form = tp_uniform.cdf(x, mini, q, maxi, p_param)
+    closed_form = tp_uniform.cdf(x, mini, sep, maxi, psep)
 
     assert numerical == pytest.approx(closed_form)
 
 
-def test_mean_var(param_triple, p_param, random_seed):
+def test_mean_var(param_triple, psep, random_seed):
     """
     mean() and var() (closed form) matches empirical mean and variance from sampling
 
     Not using expect() here because the kinks in the distribution make it hard for numerical integration to be accurate.
     """
-    mini, q, maxi = param_triple
-    dist = tp_uniform(mini, q, maxi, p_param)
+    mini, sep, maxi = param_triple
+    dist = tp_uniform(mini, sep, maxi, psep)
     samples = dist.rvs(size=int(1e7))
 
     assert dist.mean() == pytest.approx(np.mean(samples), rel=1 / 1000)
@@ -136,11 +136,11 @@ def test_mean_var(param_triple, p_param, random_seed):
 
 
 def test_generalization(param_triple):
-    mini, q, maxi = param_triple
-    assert_same_distribution(tp_uniform(mini, q, maxi, 0.5), halves_uniform(mini, q, maxi))
+    mini, sep, maxi = param_triple
+    assert_same_distribution(tp_uniform(mini, sep, maxi, 0.5), halves_uniform(mini, sep, maxi))
 
 
 def test_rvs_does_not_raise(param_triple):
-    mini, q, maxi = param_triple
-    dist = tp_uniform(mini, q, maxi, 0.5)
+    mini, sep, maxi = param_triple
+    dist = tp_uniform(mini, sep, maxi, 0.5)
     dist.rvs(size=10)
