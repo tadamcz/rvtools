@@ -4,7 +4,7 @@ import scipy
 
 from rvtools import tp_uniform
 from rvtools.construct import uniform
-from rvtools.distributions.tp_uniform import TwoPieceUniform, halves_uniform
+from rvtools.distributions._tp_uniform import TwoPieceUniform, halves_uniform
 from tests.conftest import assert_same_distribution
 
 
