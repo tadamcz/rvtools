@@ -17,7 +17,7 @@ class TwoPieceUniform(scipy.stats.rv_continuous):
         return get_support(mini, q, maxi, p)
 
     def _rvs(self, mini, q, maxi, p, size=None, random_state=None):
-        return rvs(mini, q, maxi, p, size, random_state)
+        return rvs(mini, q, maxi, p, size=size, random_state=random_state)
 
     def _pdf(self, x, mini, q, maxi, p):
         return np.vectorize(pdf_single)(x, mini, q, maxi, p)
@@ -40,7 +40,7 @@ class HalvesUniform(scipy.stats.rv_continuous):
         return get_support(mini, q, maxi)
 
     def _rvs(self, mini, q, maxi, size=None, random_state=None):
-        return rvs(mini, q, maxi, size, random_state)
+        return rvs(mini, q, maxi, size=size, random_state=random_state)
 
     def _pdf(self, x, mini, q, maxi):
         return np.vectorize(pdf_single)(x, mini, q, maxi)
@@ -75,6 +75,11 @@ def rvs(mini, q, maxi, p=0.5, size=None, random_state=None):
     With size proportional to p, sample from a uniform distribution on [mini, q]. With
     size propotional to 1-p, sample from a uniform distribution on [q, maxi].
     """
+    if size is not None:
+        if len(size) == 1:  # Caller will give this as (size,)
+            size = size[0]
+        else:
+            raise NotImplementedError("size must be a scalar for TwoPieceUniform")
     size_left = np.ceil(size * p).astype(int)
     size_right = size - size_left
 

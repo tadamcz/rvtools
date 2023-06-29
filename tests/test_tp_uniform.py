@@ -138,3 +138,9 @@ def test_mean_var(param_triple, p_param, random_seed):
 def test_generalization(param_triple):
     mini, q, maxi = param_triple
     assert_same_distribution(tp_uniform(mini, q, maxi, 0.5), halves_uniform(mini, q, maxi))
+
+
+def test_rvs_does_not_raise(param_triple):
+    mini, q, maxi = param_triple
+    dist = tp_uniform(mini, q, maxi, 0.5)
+    dist.rvs(size=10)
