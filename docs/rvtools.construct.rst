@@ -21,7 +21,7 @@ These are constructors that return a 'frozen' distribution object (which in SciP
 
 This means that for example the following works:
 
->>> from rvtools import lognorm
+>>> from rvtools.construct import lognorm
 >>> lognorm(1, 2).cdf(3)
 0.5196623384975168
 
