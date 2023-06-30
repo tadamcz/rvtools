@@ -8,8 +8,7 @@ pip install rvtools  # or `poetry add rvtools`
 
 # Sample usage
 ```python
-from rvtools.construct import lognorm, uniform, loguniform, CopulaJoint, beta
-from rvtools.dists import pert, certainty
+from rvtools.construct import lognorm, uniform, loguniform, CopulaJoint, beta, pert, certainty
 # PERT distribution: (min, mode, max) like triangular, but smoother shape
 pert(1, 2, 4)
 
@@ -21,6 +20,8 @@ uniform(1, 2)  # SciPy equivalent: uniform(1, scale=2-1). Can trip you up.
 uniform(2, 1)  # Not possible to invert the order in SciPy even though it's mathematically equivalent
 
 loguniform(p10=42, p90=100)  # Percentiles. Would need explicit calculation in SciPy
+
+certainty(42)  # 100% probability of 42, but as a _continuous_ distribution
 
 # Arbitrary quantiles (not just integer percentiles)
 lognorm(quantiles={0.0123: 1, 999/1000: 2})
