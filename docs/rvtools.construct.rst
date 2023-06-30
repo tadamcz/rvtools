@@ -32,8 +32,8 @@ AttributeError: 'function' object has no attribute 'cdf'
 
 Given how SciPy's distribution infrastructure works, improving this would require severe hacks, as far as I can tell.
 
-**Many of these function signatures intentionally diverge** from ``scipy.stats``. The behaviour should generally be clear from the names of the keyword arguments. However, if you blindly use *positional* arguments and expect the same behaviour as ``scipy.stats``, bad things will sometimes happen.
+Many of these function signatures intentionally diverge from ``scipy.stats``. The behaviour should generally be clear from the names of the keyword arguments. **The one potential danger is that positional arguments are sometimes interpreted differently** (specifically for ``uniform`` and ``lognorm``). Do not blindly use positional arguments and expect the same behaviour as ``scipy.stats``.
 
-This is an opinionated API designed to be in line with common usage in mathematics and statistics, and my personal preferences. It may be a bad fit if you want to write code that is highly idiomatic in the Python scientific computing ecosystem.
+The treatment of positional arguments is opinionated; it's designed to be in line with common usage in mathematics and statistics, and my personal preferences. It may be a bad fit if you want to write code that is highly idiomatic in the Python scientific computing ecosystem.
 
 For arcane implementation reasons (see `tadamcz/copula-wrapper <https://github.com/tadamcz/copula-wrapper>`_) ``CopulaJoint`` is a class while the other constructors are functions. You shouldn't have to think about this: both return a frozen distribution object when called.
