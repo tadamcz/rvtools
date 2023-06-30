@@ -428,13 +428,13 @@ test-no-images = ["pytest", "pytest-cov", "wurlitzer"]
 
 [[package]]
 name = "copula-wrapper"
-version = "0.1.4"
+version = "0.1.5"
 description = "Top-level package for statsmodels copula wrapper."
 optional = false
 python-versions = ">=3.9,<3.13"
 files = [
-    {file = "copula_wrapper-0.1.4-py3-none-any.whl", hash = "sha256:073f44802232dd7c4058e3fa4302f0ad428f72c529b13483776fd3a713a04862"},
-    {file = "copula_wrapper-0.1.4.tar.gz", hash = "sha256:bd072fc89dbe85613cd37e90a659c53a78ee07dd88bc6618fa45431c19d990e8"},
+    {file = "copula_wrapper-0.1.5-py3-none-any.whl", hash = "sha256:56c081488b8d600b9b421be007cd536a80b86610b0f8467a6ee508059231d615"},
+    {file = "copula_wrapper-0.1.5.tar.gz", hash = "sha256:6e8a9580f695e8fda58506051063a61af7bdc720043b58327cc21fd3917b7961"},
 ]
 
 [package.dependencies]
