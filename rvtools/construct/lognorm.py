@@ -16,6 +16,33 @@ def lognorm(
     quantiles: dict[Real, Real] = None,
     **kwargs,
 ):
+    """
+    Create a (frozen) SciPy log-normal distribution.
+
+    You can specify the parameters in one of three ways.
+
+    1. Using ``mu`` and ``sigma``:
+
+    >>> from rvtools.construct import lognorm
+    >>> lognorm(mu=1, sigma=2)  # doctest: +ELLIPSIS
+    <scipy.stats._distn_infrastructure.rv_continuous_frozen object at 0x...>
+
+    If two positional arguments are given, they are interpreted as ``mu`` and ``sigma``. **This is
+    different from SciPy.**
+
+    2. Using ``mean`` and ``sd``:
+
+    >>> lognorm(mean=1, sd=2)  # doctest: +ELLIPSIS
+    <scipy.stats._distn_infrastructure.rv_continuous_frozen object at 0x...>
+
+    3. Using quantiles:
+
+    >>> lognorm(p5=0.1, p95=0.9) # doctest: +ELLIPSIS
+    <scipy.stats._distn_infrastructure.rv_continuous_frozen object at 0x...>
+    >>> lognorm(quantiles={1/1000: 0.1, 999/1000: 0.9})  # doctest: +ELLIPSIS
+    <scipy.stats._distn_infrastructure.rv_continuous_frozen object at 0x...>
+
+    """
     spec = parse_spec(mu=mu, sigma=sigma, mean=mean, sd=sd, quantiles=quantiles, **kwargs)
     if spec.keys() == {"mu", "sigma"}:
         return from_params(mu, sigma)

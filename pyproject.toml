@@ -28,6 +28,8 @@ pytest-pycharm = "*"
 black = {extras = ["d"], version = "*"}
 mkcodes = "^0.1.1"
 matplotlib = "^3.7.1"
+sphinx = "^7.0.1"
+sphinx-autobuild = "^2021.3.14"
 
 
 

@@ -1,6 +1,6 @@
 import pytest
 
-from rvtools import certainty
+from rvtools.dists import certainty
 
 
 @pytest.fixture

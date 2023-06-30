@@ -2,9 +2,10 @@ import numpy as np
 import pytest
 import scipy
 
-from rvtools import tp_uniform
+from rvtools.dists import tp_uniform
 from rvtools.construct import uniform
-from rvtools.distributions._tp_uniform import TwoPieceUniform, halves_uniform
+from rvtools.dists import halves_uniform
+from rvtools.dists.gen.tp_uniform import TwoPieceUniform
 from tests.conftest import assert_same_distribution
 
 

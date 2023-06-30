@@ -10,6 +10,20 @@ import scipy
 
 
 class TwoPieceUniform(scipy.stats.rv_continuous):
+    """
+    A piecewise uniform distribution with two pieces.
+
+    :param mini: The left bound of the distribution.
+    :param sep: The boundary between the left and right pieces.
+    :param maxi: The right bound of the distribution.
+    :param psep: The probability at ``sep``, i.e. the probability of the left piece, i.e. ``P(X < sep) = psep``.
+
+    Examples
+    --------
+    >>> from rvtools.dists import tp_uniform
+    >>> dist = tp_uniform(0, 3, 10, psep=0.1)
+    """
+
     def _argcheck(self, mini, sep, maxi, psep):
         return argcheck(mini, sep, maxi, psep)
 
@@ -30,36 +44,6 @@ class TwoPieceUniform(scipy.stats.rv_continuous):
 
     def _stats(self, mini, sep, maxi, psep):
         return stats(mini, sep, maxi, psep)
-
-
-class HalvesUniform(scipy.stats.rv_continuous):
-    def _argcheck(self, mini, sep, maxi):
-        return argcheck(mini, sep, maxi)
-
-    def _get_support(self, mini, sep, maxi):
-        return get_support(mini, sep, maxi)
-
-    def _rvs(self, mini, sep, maxi, size=None, random_state=None):
-        return rvs(mini, sep, maxi, size=size, random_state=random_state)
-
-    def _pdf(self, x, mini, sep, maxi):
-        return np.vectorize(pdf_single)(x, mini, sep, maxi)
-
-    def _cdf(self, x, mini, sep, maxi):
-        return np.vectorize(cdf_single)(x, mini, sep, maxi)
-
-    def _ppf(self, p, mini, sep, maxi):
-        return np.vectorize(ppf_single)(p, mini, sep, maxi)
-
-    def _stats(self, mini, sep, maxi):
-        return stats(mini, sep, maxi)
-
-
-# ``tp_uniform`` and ``halves_uniform`` being instances, not a classes, is not IMO idiomatic Python, but it's core to
-# the way SciPy's ``rv_continuous`` class works. See examples of how SciPy defines their distributions in
-# ``scipy/stats/_continuous_distns.py``.
-tp_uniform = TwoPieceUniform()
-halves_uniform = HalvesUniform()
 
 
 def argcheck(mini, sep, maxi, psep=0.5):
@@ -164,3 +148,9 @@ def _uniform_pdf(x, mini, maxi):
         return 1 / (maxi - mini)
     else:
         return 0
+
+
+# These being instances, not a classes, is not IMO idiomatic Python, but it's core to the way SciPy's
+# ``rv_continuous`` class works. See examples of how SciPy defines their distributions in
+# ``scipy/stats/_continuous_distns.py``.
+tp_uniform = TwoPieceUniform()

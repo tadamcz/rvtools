@@ -9,7 +9,7 @@ def random_seed():
 
 def assert_same_distribution(d1, d2):
     """
-    Assert that two (frozen) distributions are the same.
+    Assert that two (frozen) dists are the same.
     """
     assert d1.support() == d2.support()
 

@@ -7,6 +7,27 @@ from rvtools.construct._helpers import parse_spec
 
 
 def uniform(a: Real = None, b: Real = None, *, quantiles: dict[Real, Real] = None, **kwargs):
+    """
+    Create a (frozen) SciPy uniform distribution.
+
+    You can specify the parameters in one of two ways.
+
+    1. Using the bounds ``a`` and ``b`` of the distribution:
+
+    >>> from rvtools.construct import uniform
+    >>> uniform(1, 2)  # doctest: +ELLIPSIS
+    <scipy.stats._distn_infrastructure.rv_continuous_frozen object at 0x...>
+
+    If two positional arguments are given, they are interpreted as ``a`` and ``b``. **This is
+    different from SciPy.**
+
+    2. Using quantiles:
+
+    >>> uniform(p5=0.1, p95=0.9) # doctest: +ELLIPSIS
+    <scipy.stats._distn_infrastructure.rv_continuous_frozen object at 0x...>
+    >>> uniform(quantiles={1/1000: 0.1, 999/1000: 0.9})  # doctest: +ELLIPSIS
+    <scipy.stats._distn_infrastructure.rv_continuous_frozen object at 0x...>
+    """
     spec = parse_spec(a=a, b=b, quantiles=quantiles, **kwargs)
     if spec.keys() == {"a", "b"}:
         return from_extrema(a, b)

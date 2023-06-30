@@ -8,6 +8,24 @@ from rvtools.construct._helpers import parse_spec
 
 
 def loguniform(a: Real = None, b: Real = None, *, quantiles: dict[Real, Real] = None, **kwargs):
+    """
+    Create a (frozen) SciPy log-uniform distribution.
+
+    You can specify the parameters in one of two ways.
+
+    1. Using the bounds ``a`` and ``b`` of the distribution:
+
+    >>> from rvtools.construct import loguniform
+    >>> loguniform(1, 2)  # doctest: +ELLIPSIS
+    <scipy.stats._distn_infrastructure.rv_continuous_frozen object at 0x...>
+
+    2. Using quantiles:
+
+    >>> loguniform(p5=0.1, p95=0.9) # doctest: +ELLIPSIS
+    <scipy.stats._distn_infrastructure.rv_continuous_frozen object at 0x...>
+    >>> loguniform(quantiles={1/1000: 0.1, 999/1000: 0.9})  # doctest: +ELLIPSIS
+    <scipy.stats._distn_infrastructure.rv_continuous_frozen object at 0x...>
+    """
     spec = parse_spec(a=a, b=b, quantiles=quantiles, **kwargs)
     if spec.keys() == {"a", "b"}:
         low, high = sorted([a, b])

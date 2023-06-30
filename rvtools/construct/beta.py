@@ -7,6 +7,25 @@ from rvtools.construct._helpers import parse_spec
 
 
 def beta(alpha: Real = None, beta: Real = None, *, quantiles: dict[Real, Real] = None, **kwargs):
+    """
+    Create a (frozen) SciPy beta distribution.
+
+    You can specify the parameters in one of two ways.
+
+    1. Using ``alpha`` and ``beta``:
+
+    >>> from rvtools.construct import beta
+    >>> beta(1, 2)  # doctest: +ELLIPSIS
+    <scipy.stats._distn_infrastructure.rv_continuous_frozen object at 0x...>
+
+    2. Using quantiles:
+
+    >>> beta(p5=0.1, p95=0.9) # doctest: +ELLIPSIS
+    <scipy.stats._distn_infrastructure.rv_continuous_frozen object at 0x...>
+    >>> beta(quantiles={1/1000: 0.1, 999/1000: 0.9})  # doctest: +ELLIPSIS
+    <scipy.stats._distn_infrastructure.rv_continuous_frozen object at 0x...>
+
+    """
     spec = parse_spec(alpha=alpha, beta=beta, quantiles=quantiles, **kwargs)
     if spec.keys() == {"alpha", "beta"}:
         return scipy.stats.beta(alpha, beta)
