@@ -17,8 +17,8 @@ packages = [
 
 [tool.poetry.dependencies]
 python = ">=3.9,<3.13"
-betapert = "^0.1.2"
-copula-wrapper = "^0.1.1"
+betapert = {git = "https://github.com/tadamcz/betapert", rev="main"}
+copula-wrapper = {git = "https://github.com/tadamcz/copula-wrapper", rev="main"}
 
 [tool.poetry.group.dev.dependencies]
 bump2version = "*"

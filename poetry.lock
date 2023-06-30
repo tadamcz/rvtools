@@ -179,13 +179,17 @@ version = "0.1.4"
 description = "Top-level package for beta-PERT distribution."
 optional = false
 python-versions = ">=3.9,<3.13"
-files = [
-    {file = "betapert-0.1.4-py3-none-any.whl", hash = "sha256:759391048f0db0e1c4c9aa73cd2a4fbf41402969a0e7c59b963fac16e43ebd2e"},
-    {file = "betapert-0.1.4.tar.gz", hash = "sha256:4a42db160d941defc3a108f02d2de95e8cd01d5be407fda868b8e866174d94ce"},
-]
+files = []
+develop = false
 
 [package.dependencies]
-scipy = ">=1.10.1,<2.0.0"
+scipy = "^1.10.1"
+
+[package.source]
+type = "git"
+url = "https://github.com/tadamcz/betapert"
+reference = "main"
+resolved_reference = "e22b758777df7fa4fcb02d5dd39ce29b49ceb871"
 
 [[package]]
 name = "black"
@@ -432,16 +436,20 @@ version = "0.1.2"
 description = "Top-level package for statsmodels copula wrapper."
 optional = false
 python-versions = ">=3.9,<3.13"
-files = [
-    {file = "copula_wrapper-0.1.2-py3-none-any.whl", hash = "sha256:2761b691f1ecb95159344394e3d989a60976b3e9e309cc76cfb7b27cb060ed87"},
-    {file = "copula_wrapper-0.1.2.tar.gz", hash = "sha256:0a181d7e3c2ac817e73fe74fd5608841e1752e8dd316787abe5b4f0f75cfb5bc"},
-]
+files = []
+develop = false
 
 [package.dependencies]
-numpy = ">=1.23.0,<2.0.0"
-pandas = ">=1.4.3,<2.0.0"
-scipy = ">=1.11.0,<2.0.0"
+numpy = "^1.23.0"
+pandas = "^1.4.3"
+scipy = "^1.11.0"
 statsmodels = ">=0.14.0"
+
+[package.source]
+type = "git"
+url = "https://github.com/tadamcz/copula-wrapper"
+reference = "main"
+resolved_reference = "eaab4b721466c420ef4de554c0af88314c5afc75"
 
 [[package]]
 name = "coverage"
@@ -1853,4 +1861,4 @@ testing = ["big-O", "flake8 (<5)", "jaraco.functools", "jaraco.itertools", "more
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.9,<3.13"
-content-hash = "1f119e820aa40a3f6de7cddb142baa6d1822813ce97ed35c21d6a7d236e81c28"
+content-hash = "eed4c18a191e24098aad0dc3e7f6ba62a07a0572aed8be38d0359d74db46522f"
