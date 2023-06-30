@@ -19,6 +19,10 @@ extensions = [
     "sphinx.ext.autosummary",
 ]
 autosummary_generate = True
+# TODO:
+#    python_maximum_signature_line_length parameter should be released in sphinx 7.1.0.
+#    Until then, this will have no effect. Getting the new version via git would be fine locally,
+#    but a hassle in GitHub Actions, so I'll just wait.
 python_maximum_signature_line_length = 100
 
 templates_path = ["_templates"]
