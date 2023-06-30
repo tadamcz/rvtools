@@ -19,6 +19,7 @@ extensions = [
     "sphinx.ext.autosummary",
 ]
 autosummary_generate = True
+python_maximum_signature_line_length = 100
 
 templates_path = ["_templates"]
 exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]

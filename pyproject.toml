@@ -28,7 +28,9 @@ pytest-pycharm = "*"
 black = {extras = ["d"], version = "*"}
 mkcodes = "^0.1.1"
 matplotlib = "^3.7.1"
-sphinx = "^7.0.1"
+# python_maximum_signature_line_length parameter should be released in sphinx 7.1.0.
+# Until then, get the latest version from git.
+sphinx = {git = "https://github.com/sphinx-doc/sphinx", rev="d3c91f951255c6729a53e38c895ddc0af036b5b9"}
 sphinx-autobuild = "^2021.3.14"
 
 
