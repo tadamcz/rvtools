@@ -4,8 +4,7 @@ A collection of tools for conveniently working with SciPy probability distributi
 ```shell
 pip install rvtools  # or `poetry add rvtools`
 ```
-# Documentation
-TODO: add docs link
+# [Documentation](https://tadamcz.com/rvtools/)
 
 # Sample usage
 ```python
