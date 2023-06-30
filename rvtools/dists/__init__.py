@@ -1,3 +1,4 @@
+# Subpackage named 'gen' in keeping with SciPy calling their classes ``norm_gen``, ``beta_gen``, etc
 from rvtools.dists.gen.tp_uniform import TwoPieceUniform
 from rvtools.dists.gen.halves_uniform import HalvesUniform
 from rvtools.dists.gen.certainty import Certainty

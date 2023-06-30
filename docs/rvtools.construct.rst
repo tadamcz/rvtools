@@ -12,6 +12,9 @@ rvtools.construct
     uniform
     loguniform
     CopulaJoint
+    pert
+    certainty
+    tp_uniform
 
 
 These are constructors that return a 'frozen' distribution object (which in SciPy means a distribution with specific parameter values).
