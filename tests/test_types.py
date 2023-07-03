@@ -7,6 +7,7 @@ from rvtools.fam import (
     is_frozen_beta,
     is_frozen_certainty,
     is_frozen_pert,
+    is_frozen_bernoulli,
 )
 
 
@@ -38,3 +39,8 @@ def test_certainty(frozen_wishart):
 def test_pert(frozen_wishart):
     assert is_frozen_pert(rvtools.dists.pert(1, 1, 1))
     assert not is_frozen_pert(frozen_wishart)
+
+
+def test_bernoulli(frozen_wishart):
+    assert is_frozen_bernoulli(scipy.stats.bernoulli(1))
+    assert not is_frozen_bernoulli(frozen_wishart)

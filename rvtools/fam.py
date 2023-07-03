@@ -28,6 +28,16 @@ def is_frozen_beta(obj):
         return False
 
 
+def is_frozen_bernoulli(obj):
+    """
+    Returns ``True`` if and only if ``obj`` is a frozen Bernoulli distribution.
+    """
+    try:
+        return isinstance(obj.dist, scipy.stats._discrete_distns.bernoulli_gen)
+    except AttributeError:
+        return False
+
+
 def is_frozen_certainty(obj):
     """Returns ``True`` if and only if ``obj`` is a frozen certainty distribution."""
     try:
